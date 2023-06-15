@@ -1,3 +1,4 @@
+using AbstractFactory.Core.Factories;
 using AbstractFactory.MVC;
 using AbstractFactory.MVC.Repository;
 using AbstractFactory.MVC.Repository.IRepository;
@@ -13,6 +14,9 @@ builder.Services.AddDbContext<AppDbContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+//.Services.AddTransient<IVehiculoFactory, VehiculosGamaAltaFactory>();
+//builder.Services.AddTransient<IVehiculoFactory, VehiculosGamaMediaFactory>();
+builder.Services.AddTransient<IVehiculoFactory, VehiculosGamaBajaFactory>();
 builder.Services.AddScoped<ICarroRepository, CarroRepository>();
 builder.Services.AddScoped<IBicicletaRepository, BicicletaRepository>();
 

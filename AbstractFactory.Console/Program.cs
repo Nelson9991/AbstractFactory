@@ -1,17 +1,17 @@
 ﻿using AbstractFactory.Core.Factories;
 
-var vehiculosGamaBajaFactory = new VehiculosGamaBajaFactory();
-var carroGamaBaja = vehiculosGamaBajaFactory.CrearCarro("Chevrolet", "Aveo");
-var bicicletaGamaBaja = vehiculosGamaBajaFactory.CrearBicicleta("Cannondale", "XP20");
+IVehiculoFactory vehiculosFactory = new VehiculosGamaBajaFactory();
+var carroGamaBaja = vehiculosFactory.CrearCarro("Chevrolet", "Aveo");
+var bicicletaGamaBaja = vehiculosFactory.CrearBicicleta("Cannondale", "XP20");
 
 Console.WriteLine(carroGamaBaja.ObtenerDetalles());
 Console.WriteLine(bicicletaGamaBaja.ObtenerDetalles());
 
 Console.WriteLine("\n==========================================================================\n");
 
-var vehiculosGamaAltaFactory = new VehiculosGamaAltaFactory();
-var carroGamaAlta = vehiculosGamaAltaFactory.CrearCarro("BMW", "Serie 3");
-var bicicletaGamaAlta = vehiculosGamaAltaFactory.CrearBicicleta("Specialized", "Epic");
+IVehiculoFactory vehiculosFactory2 = new VehiculosGamaAltaFactory();
+var carroGamaAlta = vehiculosFactory2.CrearCarro("BMW", "Serie 3");
+var bicicletaGamaAlta = vehiculosFactory2.CrearBicicleta("Specialized", "Epic");
 
 Console.WriteLine(carroGamaAlta.ObtenerDetalles());
 Console.WriteLine(bicicletaGamaAlta.ObtenerDetalles());

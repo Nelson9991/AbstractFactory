@@ -9,35 +9,18 @@ namespace AbstractFactory.MVC.Repository;
 public class CarroRepository : ICarroRepository
 {
     private readonly AppDbContext context;
+    private readonly IVehiculoFactory factory;
 
-    public CarroRepository(AppDbContext context)
+    public CarroRepository(AppDbContext context, IVehiculoFactory factory)
     {
         this.context = context;
+        this.factory = factory;
     }
 
-    public async Task CrearCarroAsync(Carro carro)
+    public async Task CrearCarroAsync(Carro carroEntrante)
     {
-        carro.Gama = carro.Gama.Trim().ToLower();
-        switch (carro.Gama)
-        {
-            case "baja":
-                var vehiculoGamaBajaFactory = new VehiculosGamaBajaFactory();
-                var carroGamaBaja = vehiculoGamaBajaFactory.CrearCarro(carro.Marca, carro.Modelo);
-                context.Carros.Add(carroGamaBaja);
-                break;
-            case "media":
-                var vehiculoGamaMediaFactory = new VehiculosGamaMediaFactory();
-                var carroGamaMedia = vehiculoGamaMediaFactory.CrearCarro(carro.Marca, carro.Modelo);
-                context.Carros.Add(carroGamaMedia);
-                break;
-            case "alta":
-                var vehiculoGamaAltaFactory = new VehiculosGamaAltaFactory();
-                var carroGamaAlta = vehiculoGamaAltaFactory.CrearCarro(carro.Marca, carro.Modelo);
-                context.Carros.Add(carroGamaAlta);
-                break;
-            default:
-                throw new Exception("Gama no valida");
-        }
+        var carro = factory.CrearCarro(carroEntrante.Marca, carroEntrante.Modelo);
+        context.Carros.Add(carro);
         await context.SaveChangesAsync();
     }
 
